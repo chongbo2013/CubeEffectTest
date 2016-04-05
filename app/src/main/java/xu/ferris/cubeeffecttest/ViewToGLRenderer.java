@@ -27,12 +27,11 @@ public class ViewToGLRenderer implements GLSurfaceView.Renderer {
     protected int mGlSurfaceTexture;
     protected Canvas mSurfaceCanvas;
 
-
-
-    protected GLSurfaceView mGlSurfaceView;
-    public void setGlSurfaceView(GLSurfaceView mGlSurfaceView){
+    public ViewToGLRenderer(GLSurfaceView mGlSurfaceView){
         this.mGlSurfaceView=mGlSurfaceView;
     }
+
+    protected GLSurfaceView mGlSurfaceView;
 
     @Override
     public void onDrawFrame(GL10 gl){
@@ -115,7 +114,7 @@ public class ViewToGLRenderer implements GLSurfaceView.Renderer {
             mSurface.unlockCanvasAndPost(mSurfaceCanvas);
         }
         mSurfaceCanvas = null;
-//        mGlSurfaceView.requestRender();
+        mGlSurfaceView.requestRender();
     }
 
 

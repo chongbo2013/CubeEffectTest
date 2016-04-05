@@ -33,9 +33,9 @@ class MySurfaceView extends GLSurfaceView
 
     public void init(){
         this.setEGLContextClientVersion(2); //设置使用OPENGL ES2.0
-        mRenderer = new SceneRenderer();	//创建场景渲染器
+        mRenderer = new SceneRenderer(this);	//创建场景渲染器
         setRenderer(mRenderer);				//设置渲染器
-        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);//设置渲染模式为主动渲染
+        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);//设置渲染模式为主动渲染
     }
 
 
@@ -59,7 +59,9 @@ class MySurfaceView extends GLSurfaceView
     private class SceneRenderer extends ViewToGLRenderer
     {   
     	PageRect cube;//立方体
-    	
+        public SceneRenderer(GLSurfaceView mGlSurfaceView){
+        super(mGlSurfaceView);
+        }
         public void onDrawFrame(GL10 gl) 
         { super.onDrawFrame(gl);
         	//清除深度缓冲与颜色缓冲
