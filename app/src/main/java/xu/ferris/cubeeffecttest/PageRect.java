@@ -6,7 +6,9 @@ import android.opengl.GLES20;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
+import  static xu.ferris.cubeeffecttest.Constant.UNIT_SIZE;
+import  static xu.ferris.cubeeffecttest.Constant.UNIT_SIZE_ZERO;
+import  static xu.ferris.cubeeffecttest.Constant.UNIT_SIZE_TAB;
 //颜色矩形
 public class PageRect {
     int mProgram;//自定义渲染管线着色器程序id
@@ -41,7 +43,7 @@ public class PageRect {
     private void initTexture(MySurfaceView mv) {
         textures[0]=TextureHelper.loadTexture(mv.getContext(),R.drawable.gl_crystal_font);
 
-        textures[1]=TextureHelper.loadTexture(mv.getContext(),R.drawable.gl_crystal_tb);
+        textures[1]=TextureHelper.loadTexture(mv.getContext(),R.drawable.gl_crystal_font);
     }
 
     //初始化顶点坐标与着色数据的方法
@@ -50,46 +52,42 @@ public class PageRect {
         vCount = 4*6;
         float vertices[] = new float[]
                 {
-                        // In OpenGL counter-clockwise winding is default. This means that when we look at a triangle,
-                        // if the points are counter-clockwise we are looking at the "front". If not we are looking at
-                        // the back. OpenGL has an optimization where all back-facing triangles are culled, since they
-                        // usually represent the backside of an object and aren't visible anyways.
 
                         // Front face
-                        -1.0f, 1.0f, 1.0f,
-                        -1.0f, -1.0f, 1.0f,
-                        1.0f, 1.0f, 1.0f,
-                        1.0f, -1.0f, 1.0f,
+                        -UNIT_SIZE, UNIT_SIZE, UNIT_SIZE_TAB,
+                        -UNIT_SIZE, -UNIT_SIZE, UNIT_SIZE_TAB,
+                        UNIT_SIZE, UNIT_SIZE, UNIT_SIZE_TAB,
+                        UNIT_SIZE, -UNIT_SIZE, UNIT_SIZE_TAB,
 
                         // Right face
-                        1.0f, 1.0f, 1.0f,
-                        1.0f, -1.0f, 1.0f,
-                        1.0f, 1.0f, -1.0f,
-                        1.0f, -1.0f, -1.0f,
+                        UNIT_SIZE, UNIT_SIZE, UNIT_SIZE_TAB,
+                        UNIT_SIZE, -UNIT_SIZE, UNIT_SIZE_TAB,
+                        UNIT_SIZE, UNIT_SIZE, -UNIT_SIZE_TAB,
+                        UNIT_SIZE, -UNIT_SIZE, -UNIT_SIZE_TAB,
 
                         // Back face
-                        1.0f, 1.0f, -1.0f,
-                        1.0f, -1.0f, -1.0f,
-                        -1.0f, 1.0f, -1.0f,
-                        -1.0f, -1.0f, -1.0f,
+                        UNIT_SIZE, UNIT_SIZE, -UNIT_SIZE_TAB,
+                        UNIT_SIZE, -UNIT_SIZE, -UNIT_SIZE_TAB,
+                        -UNIT_SIZE, UNIT_SIZE, -UNIT_SIZE_TAB,
+                        -UNIT_SIZE, -UNIT_SIZE, -UNIT_SIZE_TAB,
 
                         // Left face
-                        -1.0f, 1.0f, -1.0f,
-                        -1.0f, -1.0f, -1.0f,
-                        -1.0f, 1.0f, 1.0f,
-                        -1.0f, -1.0f, 1.0f,
+                        -UNIT_SIZE, UNIT_SIZE, -UNIT_SIZE_TAB,
+                        -UNIT_SIZE, -UNIT_SIZE, -UNIT_SIZE_TAB,
+                        -UNIT_SIZE, UNIT_SIZE, UNIT_SIZE_TAB,
+                        -UNIT_SIZE, -UNIT_SIZE, UNIT_SIZE_TAB,
 
                         // Top face
-                        -1.0f, 1.0f, -1.0f,
-                        -1.0f, 1.0f, 1.0f,
-                        1.0f, 1.0f, -1.0f,
-                        1.0f, 1.0f, 1.0f,
+                        -UNIT_SIZE, UNIT_SIZE, -UNIT_SIZE_TAB,
+                        -UNIT_SIZE, UNIT_SIZE, UNIT_SIZE_TAB,
+                        UNIT_SIZE, UNIT_SIZE, -UNIT_SIZE_TAB,
+                        UNIT_SIZE, UNIT_SIZE, UNIT_SIZE_TAB,
 
                         // Bottom face
-                        1.0f, -1.0f, -1.0f,
-                        1.0f, -1.0f, 1.0f,
-                        -1.0f, -1.0f, -1.0f,
-                        -1.0f, -1.0f, 1.0f,
+                        UNIT_SIZE, -UNIT_SIZE, -UNIT_SIZE_TAB,
+                        UNIT_SIZE, -UNIT_SIZE, UNIT_SIZE_TAB,
+                        -UNIT_SIZE, -UNIT_SIZE, -UNIT_SIZE_TAB,
+                        -UNIT_SIZE, -UNIT_SIZE, UNIT_SIZE_TAB,
                 };
 
 
@@ -102,35 +100,35 @@ public class PageRect {
 
          float[] cubeTextureCoordinateData =
                 {
-                        0.0f, 0.0f,
-                        0.0f, 1.0f,
-                        1.0f, 0.0f,
-                        1.0f, 1.0f,
+                        UNIT_SIZE_ZERO, UNIT_SIZE_ZERO,
+                        UNIT_SIZE_ZERO, UNIT_SIZE,
+                        UNIT_SIZE, UNIT_SIZE_ZERO,
+                        UNIT_SIZE, UNIT_SIZE,
 
-                        0.0f, 0.0f,
-                        0.0f, 1.0f,
-                        1.0f, 0.0f,
-                        1.0f, 1.0f,
+                        UNIT_SIZE_ZERO, UNIT_SIZE_ZERO,
+                        UNIT_SIZE_ZERO, UNIT_SIZE,
+                        UNIT_SIZE, UNIT_SIZE_ZERO,
+                        UNIT_SIZE, UNIT_SIZE,
 
-                        0.0f, 0.0f,
-                        0.0f, 1.0f,
-                        1.0f, 0.0f,
-                        1.0f, 1.0f,
+                        UNIT_SIZE_ZERO, UNIT_SIZE_ZERO,
+                        UNIT_SIZE_ZERO, UNIT_SIZE,
+                        UNIT_SIZE, UNIT_SIZE_ZERO,
+                        UNIT_SIZE, UNIT_SIZE,
 
-                        0.0f, 0.0f,
-                        0.0f, 1.0f,
-                        1.0f, 0.0f,
-                        1.0f, 1.0f,
+                        UNIT_SIZE_ZERO, UNIT_SIZE_ZERO,
+                        UNIT_SIZE_ZERO, UNIT_SIZE,
+                        UNIT_SIZE, UNIT_SIZE_ZERO,
+                        UNIT_SIZE, UNIT_SIZE,
 
-                        0.0f, 0.0f,
-                        0.0f, 1.0f,
-                        1.0f, 0.0f,
-                        1.0f, 1.0f,
+                        UNIT_SIZE_ZERO, UNIT_SIZE_ZERO,
+                        UNIT_SIZE_ZERO, UNIT_SIZE,
+                        UNIT_SIZE, UNIT_SIZE_ZERO,
+                        UNIT_SIZE, UNIT_SIZE,
 
-                        0.0f, 0.0f,
-                        0.0f, 1.0f,
-                        1.0f, 0.0f,
-                        1.0f, 1.0f
+                        UNIT_SIZE_ZERO, UNIT_SIZE_ZERO,
+                        UNIT_SIZE_ZERO, UNIT_SIZE,
+                        UNIT_SIZE, UNIT_SIZE_ZERO,
+                        UNIT_SIZE, UNIT_SIZE
 
                 };
 
@@ -167,6 +165,45 @@ public class PageRect {
         muAlpha= GLES20.glGetUniformLocation(mProgram, "uAlpha");
     }
 
+    /**
+     * 绘制offset 0状态
+     * @param mGlSurfaceTextureId
+     */
+    public void drawSelfNoval(int mGlSurfaceTextureId) {
+        //制定使用某套shader程序
+        GLES20.glUseProgram(mProgram);
+        //将最终变换矩阵传入shader程序
+        GLES20.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, MatrixState.getFinalMatrix(), 0);
+        //将位置、旋转变换矩阵传入shader程序
+        GLES20.glUniformMatrix4fv(muMMatrixHandle, 1, false, MatrixState.getMMatrix(), 0);
+
+
+        mVertexBuffer.position(0);
+        //为画笔指定顶点位置数据
+        GLES20.glVertexAttribPointer( maPositionHandle,3,GLES20.GL_FLOAT,false,
+                3 * 4,mVertexBuffer);
+
+        mCubeTextureCoordinates.position(0);
+        //绑定纹理位置
+        GLES20.glVertexAttribPointer(mTextureCoordinateHandle, 2, GLES20.GL_FLOAT, false,
+                2*4, mCubeTextureCoordinates);
+
+        //允许顶点位置数据数组
+        GLES20.glEnableVertexAttribArray(maPositionHandle);
+        GLES20.glEnableVertexAttribArray(mTextureCoordinateHandle);
+
+
+        GLES20.glUniform1i(muRHandle, 0);
+
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES,  mGlSurfaceTextureId);
+        GLES20.glUniform1i(mTextureUniformHandle, 0);
+        //绘制三角形
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
+    }
+
+
+    //绘制offset 非0状态
     public void drawSelf(int mGlSurfaceTextureId) {
         //制定使用某套shader程序
         GLES20.glUseProgram(mProgram);
@@ -176,11 +213,12 @@ public class PageRect {
         GLES20.glUniformMatrix4fv(muMMatrixHandle, 1, false, MatrixState.getMMatrix(), 0);
 
 
-
+        mVertexBuffer.position(0);
         //为画笔指定顶点位置数据
         GLES20.glVertexAttribPointer( maPositionHandle,3,GLES20.GL_FLOAT,false,
                 3 * 4,mVertexBuffer);
 
+        mCubeTextureCoordinates.position(0);
         //绑定纹理位置
         GLES20.glVertexAttribPointer(mTextureCoordinateHandle, 2, GLES20.GL_FLOAT, false,
                 2*4, mCubeTextureCoordinates);
@@ -191,18 +229,52 @@ public class PageRect {
 
 
 
+        //绘制前页
         GLES20.glUniform1i(muRHandle, 1);
-
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES,  mGlSurfaceTextureId);
         GLES20.glUniform1i(mTextureUniformHandle, 0);
-
-
         GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
         GLES20.glUniform1i(mTextureUniformLightHandle, 1);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
 
-        //绘制三角形
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, vCount);
+        //绘制右页面 tab
+        GLES20.glUniform1i(muRHandle, 2);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE2);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[1]);
+        GLES20.glUniform1i(mTextureUniformLightHandle, 2);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 4, 4);
+
+        //绘制背面
+        GLES20.glUniform1i(muRHandle, 2);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
+        GLES20.glUniform1i(mTextureUniformLightHandle, 1);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 8, 4);
+
+        //绘制左边
+        GLES20.glUniform1i(muRHandle, 2);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE2);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[1]);
+        GLES20.glUniform1i(mTextureUniformLightHandle, 2);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 12, 4);
+
+
+        //绘制顶面
+        GLES20.glUniform1i(muRHandle, 2);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE2);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[1]);
+        GLES20.glUniform1i(mTextureUniformLightHandle, 2);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 16, 4);
+
+
+        //绘制底面
+        GLES20.glUniform1i(muRHandle, 2);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE2);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[1]);
+        GLES20.glUniform1i(mTextureUniformLightHandle, 2);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 20, 4);
+
     }
 }

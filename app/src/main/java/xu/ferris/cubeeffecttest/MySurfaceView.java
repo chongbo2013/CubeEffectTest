@@ -81,7 +81,7 @@ class MySurfaceView extends GLSurfaceView
 
             MatrixState.setProjectFrustum(-ratio, ratio, -1, 1, 20, 100);
             //调用此方法产生摄像机9参数位置矩阵
-            MatrixState.setCamera(0,0,21,0f,0f,0f,0f,1.0f,0.0f);
+            MatrixState.setCamera(0,0,45,0f,0f,0f,0f,1.0f,0.0f);
 
             //初始化变换矩阵
             MatrixState.setInitStack();

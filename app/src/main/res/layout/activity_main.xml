@@ -9,14 +9,16 @@
 
 
 
-    <xu.ferris.cubeeffecttest.MySurfaceView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/gl_layout"
-        />
+
     <xu.ferris.cubeeffecttest.GLWebView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/gl_layout_webview"
+        />
+
+    <xu.ferris.cubeeffecttest.MySurfaceView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/gl_layout"
         />
 </FrameLayout>
